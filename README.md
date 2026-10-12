@@ -29,6 +29,17 @@ Everything runs client-side. Your contact data is saved to `localStorage` so you
 - **qrcode.js** — QR code generation (loaded from CDN)
 - **vCard 3.0** — Industry-standard contact card format that all phones understand
 
+## Picture QR
+
+**[q-r.contact/picture/](https://q-r.contact/picture/)** hides an image inside a working QR code. Pick a link and a picture, adjust zoom and tone, and download a PNG or SVG.
+
+- Each QR module is drawn as a 3×3 block of pixels. The centre pixel carries the real data bit, and the other eight pixels are dithered from your picture. Finder, timing, alignment and format patterns stay solid.
+- Every render is decoded in the browser with [jsQR](https://github.com/cozmo/jsQR), and a badge shows whether it scans. Error correction H gives the picture the most room.
+- It runs entirely client-side: the image never leaves your device, and the page makes no network requests.
+- Libraries: [qrcode-generator](https://github.com/kazuhikoarase/qrcode-generator) (MIT) and jsQR (Apache-2.0), vendored in [`vendor/`](vendor/) with their licenses.
+
+Credit: the dithering technique comes from [andrewt.net's write-up on dithered QR codes](https://www.andrewt.net/dithered-qr-codes/wtf/).
+
 ## Deployment
 
 Hosted on [Cloudflare Pages](https://pages.cloudflare.com). Pushes to `main` deploy to production at [q-r.contact](https://q-r.contact). Pull requests get automatic preview deployments with unique URLs.

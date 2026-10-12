@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5b8aff">
+<meta name="description" content="Hide a picture inside a working QR code. Runs entirely in your browser — nothing is uploaded.">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="apple-touch-icon" href="../icon-192.png">
+<title>Picture QR · QR Me</title>
+<!-- No external requests: no CDN scripts, no Google Fonts (styles.css falls back to system sans). -->
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="picture.css">
+</head>
+<body>
+
+<div class="container pq">
+  <a class="pq-back" href="../">&#8592; QR Me</a>
+  <header>
+    <h1>Picture <span>QR</span></h1>
+    <p>Hides an image inside a working QR code. Each module becomes a 3×3 block: the centre pixel carries the data, the other eight are a dither of your picture. Everything runs in this page — nothing is uploaded.</p>
+  </header>
+
+  <main class="pq-grid">
+    <section class="card pq-settings" aria-label="Settings">
+      <fieldset>
+        <legend class="card-title">Link</legend>
+        <textarea id="url" spellcheck="false" placeholder="https://example.com" aria-label="Text or URL to encode"></textarea>
+        <p class="pq-note" id="charcount"></p>
+      </fieldset>
+
+      <fieldset>
+        <legend class="card-title">Picture</legend>
+        <label class="pq-drop" id="drop" for="file">
+          <img id="thumb" alt="">
+          <span><strong>Choose, drop, or paste an image</strong><small>PNG, JPG, SVG, WebP — stays on your device</small></span>
+        </label>
+        <input type="file" id="file" accept="image/*" hidden>
+        <div class="pq-range"><label for="zoom">Zoom <output id="zoomV"></output></label><input type="range" id="zoom" min="0.5" max="3" step="0.01"></div>
+        <div class="pq-range"><label for="panx">Pan left/right <output id="panxV"></output></label><input type="range" id="panx" min="-0.5" max="0.5" step="0.005"></div>
+        <div class="pq-range"><label for="pany">Pan up/down <output id="panyV"></output></label><input type="range" id="pany" min="-0.5" max="0.5" step="0.005"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="card-title">Tone</legend>
+        <div class="pq-range"><label for="contrast">Contrast <output id="contrastV"></output></label><input type="range" id="contrast" min="0.5" max="3" step="0.05"></div>
+        <div class="pq-range"><label for="bright">Brightness <output id="brightV"></output></label><input type="range" id="bright" min="0.5" max="2" step="0.01"></div>
+        <div class="pq-check"><input type="checkbox" id="invert"><label for="invert">Invert picture</label></div>
+      </fieldset>
+
+      <fieldset>
+        <legend class="card-title">Code</legend>
+        <div class="pq-row">
+          <div><label for="ecc">Error correction</label>
+            <select id="ecc"><option value="L">L · 7%</option><option value="M">M · 15%</option><option value="Q">Q · 25%</option><option value="H" selected>H · 30%</option></select></div>
+          <div><label for="minver">Min version</label>
+            <select id="minver"></select></div>
+        </div>
+        <div class="pq-row">
+          <div><label for="dark">Dark</label><input type="color" id="dark"></div>
+          <div><label for="light">Light</label><input type="color" id="light"></div>
+        </div>
+        <details class="pq-details"><summary>What do these do?</summary>
+          <p>Higher versions add more modules, so the picture gets more detail but the code gets denser to scan. Error correction H also forces a larger version, which helps the picture. Keep the dark colour much darker than the light one.</p>
+        </details>
+      </fieldset>
+    </section>
+
+    <section class="pq-stage" aria-label="Result">
+      <div class="card pq-canvas-wrap"><canvas id="preview" width="10" height="10"></canvas></div>
+      <div class="pq-status" id="status"></div>
+      <div class="pq-actions">
+        <label for="scale">Export size</label>
+        <select id="scale"><option value="4">×4</option><option value="6">×6</option><option value="10" selected>×10</option><option value="16">×16</option></select>
+        <button class="btn btn-primary" id="download">Download PNG</button>
+        <button class="btn" id="downloadSvg">Download SVG</button>
+      </div>
+      <p class="pq-note">Scale the PNG only with nearest-neighbour (no smoothing). SVG stays sharp at any size and is best for print. Always test-scan with a phone before printing.</p>
+    </section>
+  </main>
+
+  <footer class="footer pq-credit">
+    Technique from <a href="https://www.andrewt.net/dithered-qr-codes/wtf/" target="_blank" rel="noopener noreferrer">andrewt.net</a>.
+    Uses <a href="../vendor/README.md">qrcode-generator (MIT) and jsQR (Apache-2.0)</a>.
+  </footer>
+</div>
+
+<script src="../vendor/qrcode-generator-2.0.4.js"></script>
+<script src="../vendor/jsqr-1.4.0.js"></script>
+<script src="picture.js"></script>
+
+</body>
+</html>
