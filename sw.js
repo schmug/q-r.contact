@@ -1,4 +1,4 @@
-const CACHE_NAME = 'vcard-qr-v8';
+const CACHE_NAME = 'vcard-qr-v10';
 const ASSETS = [
   '/',
   '/index.html',
@@ -8,6 +8,11 @@ const ASSETS = [
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png',
+  '/picture/',
+  '/picture/picture.js',
+  '/picture/picture.css',
+  '/vendor/qrcode-generator-2.0.4.js',
+  '/vendor/jsqr-1.4.0.js',
   'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
   'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap'
 ];

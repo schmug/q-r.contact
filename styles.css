@@ -807,6 +807,17 @@ header p {
   padding: 1rem 0;
 }
 
+.tool-link {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color 0.2s;
+}
+
+.tool-link:hover { color: var(--accent); }
+
 .sponsor-link {
   display: inline-flex;
   align-items: center;
